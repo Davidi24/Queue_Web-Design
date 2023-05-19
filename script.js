@@ -1,103 +1,118 @@
-
-//Node class
+// Node class
 class Node {
 	constructor(element, prev, next) {
 	  this.element = element;
 	  this.prev = prev;
 	  this.next = next;
 	}
-	
+  
 	getElement() {
 	  return this.element;
 	}
-	
+  
 	getNext() {
 	  return this.next;
 	}
-	
+  
 	getPrev() {
 	  return this.prev;
 	}
-	
+  
 	setNext(n) {
 	  this.next = n;
 	}
-	
+  
 	setPrev(p) {
 	  this.prev = p;
 	}
   }
-
-class DoublyLinkedList {
-
-	//function of DoublyLinkedList class
+  
+  // DoublyLinkedList class
+  class DoubleLinkedList {
 	constructor() {
 	  this.header = new Node(null, null, null);
 	  this.trailer = new Node(null, this.header, null);
-	  this.header.setNext(this.trailer);
+	  this.header.next = this.trailer;
 	  this.size = 0;
 	}
-	
+  
+	getSize() {
+	  return this.size;
+	}
+  
 	isEmpty() {
 	  return this.size === 0;
 	}
-	
-	first() {
-	  if (this.isEmpty()) {
+  
+	getFirst() {
+	  if (!this.isEmpty()) {
+		return this.header.next.getElement();
+	  } else {
 		return null;
 	  }
-	  return this.header.getNext().getElement();
 	}
-	
-	last() {
-	  if (this.isEmpty()) {
+  
+	getLast() {
+	  if (!this.isEmpty()) {
+		return this.trailer.prev.getElement();
+	  } else {
 		return null;
 	  }
-	  return this.trailer.getPrev().getElement();
 	}
-	
-	addFirst(e) {
-	  this.addBetween(e, this.header, this.header.getNext());
-	}
-	
-	addLast(e) {
-	  this.addBetween(e, this.trailer.getPrev(), this.trailer);
-	}
-	
-	showList() {
-	  let temp = this.header.getNext();
-	  let list = [];
   
-	  while (temp !== this.trailer) {
-		list.push(temp.getElement());
-		temp = temp.getNext();
-	  }
-  
-	  console.log(list);
+	addFirst(data) {
+	  this.addBetween(data, this.header, this.header.next);
 	}
-	
-	addBetween(e, predecessor, successor) {
-	  let newNode = new Node(e, predecessor, successor);
-	  predecessor.setNext(newNode);
+  
+	addLast(data) {
+	  this.addBetween(data, this.trailer.prev, this.trailer);
+	}
+  
+	addBetween(data, predecessor, successor) {
+	  const newNode = new Node(data, predecessor, successor);
 	  successor.setPrev(newNode);
+	  predecessor.setNext(newNode);
 	  this.size++;
 	}
-	
-	concatenate(list2) {
-	  let yourNode = list2.header.getNext();
-	  let myNode = this.trailer.getPrev();
-	  myNode.setNext(yourNode);
-	  this.trailer = list2.trailer;
+  
+	remove(node) {
+	  const predecessor = node.getPrev();
+	  const successor = node.getNext();
+	  predecessor.setNext(successor);
+	  successor.setPrev(predecessor);
+	  this.size--;
+	  return node.getElement();
+	}
+  
+	removeFirst() {
+	  if (this.isEmpty()) {
+		return;
+	  }
+	  const first = this.header.next;
+	  this.header.setNext(first.getNext());
+	  first.getNext().setPrev(this.header);
+	  first.setNext(null);
+	  first.setPrev(null);
+	  this.size--;
+	}
+  
+	show() {
+	  const arr = [];
+	  if (!this.isEmpty()) {
+		let temp = this.header.next;
+		while (temp !== this.trailer) {
+		  arr.push(temp.getElement());
+		  temp = temp.getNext();
+		}
+	  }
+	  console.log(arr);
 	}
   }
   
-
-
-  //.........................................................................
-
+  // Queue class
   class Queue {
 	constructor() {
-	  this.list = new DoublyLinkedList();
+	  this.list = new DoubleLinkedList();
 	  this.size = 0;
 	}
   
@@ -107,7 +122,7 @@ class DoublyLinkedList {
 	}
   
 	pop() {
-	  if (this.isEmty()) {
+	  if (this.isEmpty()) {
 		console.log("Queue Empty");
 		return null;
 	  }
@@ -118,10 +133,10 @@ class DoublyLinkedList {
 	}
   
 	show() {
-	  this.list.showList();
+	  this.list.show();
 	}
   
-	isEmty() {
+	isEmpty() {
 	  return this.size === 0;
 	}
   
@@ -129,15 +144,25 @@ class DoublyLinkedList {
 	  return this.size;
 	}
   }
-
-
-  const button = document.querySelector('.Prova');
-//   console.log(button);
-
-button.addEventListener('click', (event)=>{
+  
+  const button = document.querySelector('.Push');
+  
+  button.addEventListener('click', (event) => {
 	event.preventDefault();
-	 var q1 = new Queue();
-     q1.push('a');
-	 q1.push(2);
-	 q1.show();
-})
+	var q1 = new Queue();
+	q1.push(1);
+	q1.push(2);
+	q1.push(3);
+	q1.show();
+	q1.pop();
+	q1.show();
+	q1.pop();
+	q1.pop();
+	q1.pop();
+	console.log(q1.isEmpty());
+	console.log(q1.Size());
+	q1.push(5);
+	console.log(q1.Size());
+	
+	
+  });
