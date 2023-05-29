@@ -202,15 +202,25 @@ class Queue {
 
 	  
 }
-  
+  var cnt =0;
 // Event listener for the form submission
 document.querySelector('form').addEventListener('submit', function (e) {
 	e.preventDefault();
 	const input = document.querySelector('.ele1');
 	const element = parseInt(input.value);
-	
-	if (!isNaN(element)) {
+	if(cnt>30){
+		const paragraph = document.querySelector('.overflow');
+		paragraph.textContent = "";
+		 newText = "Queue overflow";  
+		paragraph.textContent = newText;
+
+		setTimeout(() => {
+		  paragraph.textContent = paragraph.textContent.replace(newText, '');
+		}, 4000);
+	}
+	else if (!isNaN(element) && element!=' ') {
 	  queue.enqueue(element);
+	  cnt++;
 	  input.value = '';
 	}
   });
@@ -226,6 +236,7 @@ document.querySelector('.pop').addEventListener('click', function () {
         queue.dequeue();
         updateVisualization1();
     }
+
 });
 
 document.querySelector('.clear').addEventListener('click', function () {
@@ -246,18 +257,18 @@ function updateVisualization1() {
     }
 }
 
-// Function to clear the visualization
-// function clearVisualization() {
-//     queue.clearlist();
-//     const queueContainer = document.querySelector('.visualisation');
-//     queueContainer.innerHTML = '';
-// }
 
-// Event listener for the clear action
-// document.querySelector('.clear').addEventListener('click', function () {
-//     queue.clearlist();
-//     clearVisualization();
-// });
+	document.querySelector('.Size').addEventListener('click', (e) => {
+		const paragraph = document.querySelector('.par');
+		paragraph.textContent = "";
+		 newText = "Size is: "+cnt;  
+		paragraph.textContent = newText;
+
+		setTimeout(() => {
+		  paragraph.textContent = paragraph.textContent.replace(newText, '');
+		}, 3000);
+	  });
+
 
 
 

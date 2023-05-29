@@ -426,5 +426,16 @@ box-shadow: black 0 0 0 3px;
   margin-right: 10px;
 }
 
+.par{
+  position: absolute;
+  font-size: 25px;
+  margin-top: 280px;
+ margin-left: 100px;
+}
 
+.overflow{
+  margin-top: 250px;
+  margin-left: 500px;
+  font-size: 60px;
+}
 
