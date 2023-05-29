@@ -234,12 +234,14 @@ const queue = new Queue();
 document.querySelector('.pop').addEventListener('click', function () {
     if (!queue.isEmpty()) {
         queue.dequeue();
+		cnt--;
         updateVisualization1();
     }
 
 });
 
 document.querySelector('.clear').addEventListener('click', function () {
+	cnt=0;
 	queue.clearlist();
   });
 
@@ -268,9 +270,3 @@ function updateVisualization1() {
 		  paragraph.textContent = paragraph.textContent.replace(newText, '');
 		}, 3000);
 	  });
-
-
-
-
-
-
