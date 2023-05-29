@@ -106,6 +106,10 @@ class DoubleLinkedList {
 	  }
 	  return elements;
 	}
+
+	
+	  
+	
 }
   
 // Queue class
@@ -159,7 +163,17 @@ class Queue {
 	  }
 	  return this.rear.getElement();
 	}
-  
+
+	clearlist() {
+		while (!this.isEmpty()) {
+		  this.dequeue();
+		}
+		this.front = null;
+		this.rear = null;
+		this.updateVisualization();
+	  }
+	  
+	  
 	updateVisualization() {
 		const queueContainer = document.querySelector('.visualisation');
 		queueContainer.innerHTML = '';
@@ -185,6 +199,8 @@ class Queue {
 		  }
 		}
 	  }
+
+	  
 }
   
 // Event listener for the form submission
@@ -200,3 +216,50 @@ document.querySelector('form').addEventListener('submit', function (e) {
   });
 // Create an instance of the Queue class
 const queue = new Queue();
+
+
+
+
+// Event listener for the dequeue action
+document.querySelector('.pop').addEventListener('click', function () {
+    if (!queue.isEmpty()) {
+        queue.dequeue();
+        updateVisualization1();
+    }
+});
+
+document.querySelector('.clear').addEventListener('click', function () {
+	queue.clearlist();
+  });
+
+// Modified updateVisualization() function
+function updateVisualization1() {
+    const queueContainer = document.querySelector('.visualisation');
+    const linesContainer = document.querySelector('.lines-container');
+
+    if (queueContainer.firstChild) {
+        queueContainer.removeChild(queueContainer.firstChild);
+    }
+
+    if (linesContainer && linesContainer.firstChild) {
+        linesContainer.removeChild(linesContainer.firstChild);
+    }
+}
+
+// Function to clear the visualization
+// function clearVisualization() {
+//     queue.clearlist();
+//     const queueContainer = document.querySelector('.visualisation');
+//     queueContainer.innerHTML = '';
+// }
+
+// Event listener for the clear action
+// document.querySelector('.clear').addEventListener('click', function () {
+//     queue.clearlist();
+//     clearVisualization();
+// });
+
+
+
+
+
